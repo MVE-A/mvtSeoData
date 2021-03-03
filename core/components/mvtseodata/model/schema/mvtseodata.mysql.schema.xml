@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="mvtseodata" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="mvtseodata" version="1.1">
+
+    <!-- <object class="mvtSeoDataTemp" table="mvtseodata_temp" extends="xPDOSimpleObject">
+		<field key="category_id" dbtype="int" precision="8" phptype="integer" null="true" default="0"/>
+		<field key="category_name" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
+		<field key="sale" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+		
+        <index alias="category_id" name="category_id" primary="false" unique="false" type="BTREE">
+            <column key="category_id" length="" collation="A" null="false"/>
+        </index>
+		<index alias="sale" name="sale" primary="false" unique="false" type="BTREE">
+            <column key="sale" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+    </object> -->
+	
+	
+	<object class="mvtSeoDataCatogories" table="mvtseodata_catogories" extends="xPDOSimpleObject">
+		<field key="resource_id" dbtype="int" precision="11" phptype="integer" null="true" default="0"/>	
+		<field key="min_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
+		<field key="max_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
+		<field key="average_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
+		<field key="count_products" dbtype="int" precision="8" phptype="integer" null="true" default="0"/>
+		<!-- количество товаров в разделе -->
+		<field key="count_products_sale" dbtype="int" precision="8" phptype="integer" null="true" default="0"/>
+		<!-- количество товаров в разделе со скидкой -->
+		
+		<field key="main_product" dbtype="text" phptype="json" null="true"/>
+		<!-- главный товар в разделе, по умолчанию - первый подходящий в данном разделе. 
+			отсюда можно брать, например, thumb для og:image -->
+		
+		<field key="min_price_product" dbtype="text" phptype="json" null="true"/>
+		<field key="max_price_product" dbtype="text" phptype="json" null="true"/>
+		<!-- массивы данных товаров с наименьшей и наибольшей ценой в JSON -->
+		
+		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+    </object>
+	
+	
+	<object class="mvtSeoDataTemplates" table="mvtseodata_templates" extends="xPDOSimpleObject">
+		<field key="resource_id" dbtype="int" precision="8" phptype="integer" null="true" default="0"/>	
+                <field key="resource_parent_id" dbtype="int" precision="11" phptype="integer" null="true" default="0"/>	
+		<field key="resource_class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="modDocument"/>
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+		<field key="pagetitle_template" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+		<field key="title_template" dbtype="text" phptype="string" null="true" default=""/>
+		<field key="description_template" dbtype="text" phptype="string" null="true" default=""/>
+		<field key="content_template" dbtype="text" phptype="string" null="true" default=""/>
+		<field key="get_page_template" dbtype="text" phptype="string" null="true" default=""/>
+		<!-- шаблон для обработки переменной $_GET['page'] . доступен в других шаблонах как {page} -->
+		<field key="priority" dbtype="tinyint" attributes="unsigned" precision="3" phptype="integer" null="true" default="0"/>
+		<field key="replacement_priority" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
+                <!-- приоритет замены: 0 - приоритет у штатных полей, 1 - у полей компонента, 2 - поля компонента дополняют штатные -->
+        <field key="replacement_priority_content" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>        
+		<field key="common" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="0"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+
+        <index alias="resource_class_key" name="resource_class_key" primary="false" unique="false" type="BTREE">
+            <column key="resource_class_key" length="" collation="A" null="false"/>
+        </index>
+		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+    </object>
+
+</model>
